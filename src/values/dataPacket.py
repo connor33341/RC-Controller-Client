@@ -22,4 +22,4 @@ class DataPacket:
             "aileron": self.AILERON,
             "elevator": self.ELEVATOR
         }
-        return json.dumps(self.JSON)
+        return json.dumps(self.JSON)+"\n"
