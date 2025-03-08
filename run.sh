@@ -1,0 +1,1 @@
+sudo ~/Documents/GitHub/RC-Controller/.venv/bin/python ~/Documents/GitHub/RC-Controller/src/main.py
