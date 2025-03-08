@@ -24,7 +24,7 @@ class Interface:
                 Packet: DataPacket = self.WriteQueue.get(timeout=1.0)
                 self.SendPacket(Packet)
                 self.WriteQueue.task_done()
-                time.sleep(0.5)
+                time.sleep(0.1)
             except queue.Empty:
                 continue
 
