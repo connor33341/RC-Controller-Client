@@ -1,6 +1,7 @@
 import serial
 import serial.tools.list_ports
 import time
+import threading
 from lib.comSearch import ComSearch
 from lib.interface import Interface
 from values.dataPacket import DataPacket
@@ -23,6 +24,9 @@ class Main:
         
     def Connect(self):
         self.InterfaceClass = Interface(self.Devices[0],BAUD_RATE)
+        self.SerialThread = threading.Thread(target=self.InterfaceClass.AsyncPacketWriter)
+        self.SerialThread.daemon = True
+        self.SerialThread.start()
 
     def SetInital(self):
         InitalPacket = DataPacket()

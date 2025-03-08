@@ -30,7 +30,8 @@ class KeyboardControl:
                 Data = True
                 self.Running = False
             if Data:
-                PacketInterface.SendPacket(Packet)
+                #PacketInterface.SendPacket(Packet)
+                PacketInterface.WriteQueue.put(Packet)
                 self.LastPacket = Packet
                 print(Packet.ToJson())
                 time.sleep(self.Delay)
