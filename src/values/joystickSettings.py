@@ -4,4 +4,4 @@ class JoystickSettings:
     RUDDER_AXIS = 5
     ELEVATOR_AXIS = 1 #found
     JOYSTICK_INDEX = 0
-    DELAY = 1
+    DELAY = 0.1

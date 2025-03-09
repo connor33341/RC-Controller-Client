@@ -18,12 +18,14 @@ class JoystickControl:
             self.Running = False
         self.Joystick = pygame.joystick.Joystick(self.Settings.JOYSTICK_INDEX)
         self.Joystick.init()
+        self.LastNormalized = {}
         print(f"[INFO]: Axes detected: {self.Joystick.get_numaxes()}")
     def Run(self,InterfaceClass: Interface):
         self.InterfaceClass = InterfaceClass
         while self.Running:
             pygame.event.pump()
             Values = {}
+            Push = True
             for AxisData in self.Axes:
                 AxisIndex = AxisData[0]
                 Key = AxisData[1]
@@ -32,16 +34,20 @@ class JoystickControl:
                     Value = Value * -1
                 Values[Key] = Value
             #print(Values)
-            NormalizedValues = {}
+            NormalizedValues = {"throttle":0}
+            if NormalizedValues == self.LastNormalized:
+                Push = False
             for Key in Values:
                 Value = Values[Key]
                 Normalized = max(0,abs(min(DataPacket.MAX_VALUE,((DataPacket.MAX_VALUE-DataPacket.NETURAL_VALUE)*Value)+2.2)))
                 NormalizedValues[Key] = Normalized
             print(NormalizedValues)
-            Packet = DataPacket()
-            Packet.FromJson(json.dumps(NormalizedValues))
-            self.InterfaceClass.WriteQueue.put(Packet)
-            time.sleep(self.Settings.DELAY)
+            if Push:
+                Packet = DataPacket()
+                Packet.FromJson(json.dumps(NormalizedValues))
+                self.InterfaceClass.WriteQueue.put(Packet)
+                self.LastNormalized = NormalizedValues
+                time.sleep(self.Settings.DELAY)
                 
 
 
