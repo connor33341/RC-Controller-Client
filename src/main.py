@@ -6,11 +6,13 @@ from lib.comSearch import ComSearch
 from lib.interface import Interface
 from values.dataPacket import DataPacket
 from lib.keyboardControl import KeyboardControl
+from lib.joystickControl import JoystickControl
 from values.keyboardSettings import KeyboardSettings
+from values.joystickSettings import JoystickSettings
 
 ARDUINO_DESCRIPTION = ["arduino","ch340","ch341","ftdi","usb-serial","ttyacm1"]
 BAUD_RATE = 115200
-MODE = "KEYBOARD" # JOYSTICK
+MODE = "JOYSTICK" # KEYBOARD
 
 class Main:
     def __init__(self):
@@ -41,6 +43,10 @@ class Main:
             KeyboardControlSettings = KeyboardSettings()
             KeyboardControlClass = KeyboardControl(KeyboardControlSettings)
             KeyboardControlClass.Run(self.InterfaceClass)
+        elif MODE == "JOYSTICK":
+            JoystickControlSettings = JoystickSettings()
+            JoystickControlClass = JoystickControl(JoystickControlSettings)
+            JoystickControlClass.Run(self.InterfaceClass)
 
 if __name__ == "__main__":
     print("[INFO]: Initalized")
