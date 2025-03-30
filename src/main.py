@@ -10,7 +10,7 @@ from lib.joystickControl import JoystickControl
 from values.keyboardSettings import KeyboardSettings
 from values.joystickSettings import JoystickSettings
 
-ARDUINO_DESCRIPTION = ["arduino","ch340","ch341","ftdi","usb-serial","ttyacm1"]
+ARDUINO_DESCRIPTION = ["arduino","ch340","ch341","ftdi","usb-serial","ttyacm1","ttyacm0","ttyacm2","ttyacm3"]
 BAUD_RATE = 115200
 MODE = "JOYSTICK" # KEYBOARD
 
